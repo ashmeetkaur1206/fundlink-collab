@@ -9,34 +9,13 @@ import {
   Bell, 
   ChevronLeft, 
   ChevronRight, 
-  HandshakeSVG, 
   Home, 
   MessageSquare, 
   Search, 
   Settings, 
-  UserRound 
+  UserRound,
+  Handshake
 } from "lucide-react";
-
-// Add the missing HandshakeSVG icon
-function HandshakeSVG(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="m11 14-2.3-2.3a2.4 2.4 0 0 0-3.4 0 2.4 2.4 0 0 0 0 3.4l2.3 2.3c.4.4.9.6 1.5.6s1.1-.2 1.5-.6l4.9-4.9" />
-      <path d="m15 10 2.3 2.3a2.4 2.4 0 0 0 3.4 0 2.4 2.4 0 0 0 0-3.4L18.4 6.9c-.4-.4-.9-.6-1.5-.6s-1.1.2-1.5.6L10.5 12" />
-    </svg>
-  );
-}
 
 interface SidebarProps {
   className?: string;
@@ -59,7 +38,7 @@ export function Sidebar({ className }: SidebarProps) {
     },
     {
       label: "Funding",
-      icon: HandshakeSVG,
+      icon: Handshake,
       to: "/funding",
     },
     {
@@ -100,7 +79,7 @@ export function Sidebar({ className }: SidebarProps) {
           )}
         >
           <div className="rounded-full bg-sidebar-primary p-1">
-            <HandshakeSVG className="h-5 w-5 text-sidebar-primary-foreground" />
+            <Handshake className="h-5 w-5 text-sidebar-primary-foreground" />
           </div>
           <span className="font-semibold text-sidebar-foreground">Similarity</span>
         </div>

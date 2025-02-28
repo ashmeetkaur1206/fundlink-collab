@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ModeToggle } from "@/components/mode-toggle";
-import { HandshakeSVG, ArrowRight } from "lucide-react";
+import { Handshake, ArrowRight as ArrowRightIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// Add the HandshakeSVG icon
-function HandshakeSVG(props: React.SVGProps<SVGSVGElement>) {
+// Custom SVG component for the app logo
+function AppLogo(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -27,27 +27,6 @@ function HandshakeSVG(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-// Add the ArrowRight icon
-function ArrowRight(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
-  );
-}
-
 const Index = () => {
   const { toast } = useToast();
 
@@ -63,7 +42,7 @@ const Index = () => {
       <header className="w-full py-6 px-8 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="rounded-full bg-primary p-1.5">
-            <HandshakeSVG className="h-5 w-5 text-primary-foreground" />
+            <AppLogo className="h-5 w-5 text-primary-foreground" />
           </div>
           <span className="font-semibold text-xl">Similarity</span>
         </div>
@@ -133,7 +112,7 @@ const Index = () => {
               <Button variant="ghost" className="w-full justify-between group" asChild>
                 <Link to="/dashboard">
                   <span>Learn more</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </CardFooter>
@@ -176,7 +155,7 @@ const Index = () => {
               <Button variant="ghost" className="w-full justify-between group" asChild>
                 <Link to="/dashboard">
                   <span>Learn more</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </CardFooter>
@@ -219,7 +198,7 @@ const Index = () => {
               <Button variant="ghost" className="w-full justify-between group" asChild>
                 <Link to="/dashboard">
                   <span>Learn more</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </CardFooter>
@@ -231,7 +210,7 @@ const Index = () => {
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center gap-2 mb-4 md:mb-0">
             <div className="rounded-full bg-primary/10 p-1">
-              <HandshakeSVG className="h-4 w-4 text-primary" />
+              <AppLogo className="h-4 w-4 text-primary" />
             </div>
             <span className="font-medium">Similarity</span>
           </div>

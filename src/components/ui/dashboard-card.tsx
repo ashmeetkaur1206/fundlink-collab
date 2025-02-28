@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { CSSProperties } from "react";
 
 interface DashboardCardProps {
   title: string;
@@ -14,6 +15,7 @@ interface DashboardCardProps {
   progress?: number;
   status?: "new" | "pending" | "approved" | "rejected";
   className?: string;
+  style?: CSSProperties;
   onView?: () => void;
   onApply?: () => void;
 }
@@ -27,11 +29,12 @@ export function DashboardCard({
   progress,
   status,
   className,
+  style,
   onView,
   onApply,
 }: DashboardCardProps) {
   return (
-    <Card className={cn("overflow-hidden transition-all hover:shadow-md", className)}>
+    <Card className={cn("overflow-hidden transition-all hover:shadow-md", className)} style={style}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="line-clamp-1 text-lg font-medium">{title}</CardTitle>
