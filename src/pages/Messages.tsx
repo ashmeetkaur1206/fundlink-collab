@@ -11,6 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { MessageSquare, Search, Send, MoreVertical, Filter, Paperclip, Smile } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils"; // Add this import for the cn utility function
 import {
   DropdownMenu,
   DropdownMenuContent,
