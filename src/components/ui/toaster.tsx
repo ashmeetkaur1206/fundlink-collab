@@ -7,7 +7,6 @@ export function Toaster() {
 
   return (
     <SonnerToaster 
-      toasts={toasts}
       className="toaster group"
       position="top-right"
       expand={false}

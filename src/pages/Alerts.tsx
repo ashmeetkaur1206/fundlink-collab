@@ -115,15 +115,17 @@ export default function Alerts() {
   return (
     <div className="flex flex-col gap-8">
       <DashboardHeader 
-        heading="Alerts" 
-        subheading="View and manage your notifications"
-      >
-        {unreadCount > 0 && (
+        title="Alerts" 
+        description="View and manage your notifications"
+      />
+      
+      {unreadCount > 0 && (
+        <div className="flex justify-end">
           <Button onClick={markAllAsRead} variant="outline" size="sm">
             Mark all as read
           </Button>
-        )}
-      </DashboardHeader>
+        </div>
+      )}
 
       <div className="grid gap-6">
         {alerts.length === 0 ? (
