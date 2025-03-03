@@ -1,4 +1,3 @@
-
 import { DashboardHeader } from "@/components/dashboard-header";
 import { DashboardCard } from "@/components/ui/dashboard-card";
 import { Input } from "@/components/ui/input";
@@ -336,7 +335,7 @@ export default function Funding() {
               <SelectValue placeholder="All Categories" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Categories</SelectItem>
+              <SelectItem value="all">All Categories</SelectItem>
               <SelectItem value="Community">Community</SelectItem>
               <SelectItem value="Environment">Environment</SelectItem>
               <SelectItem value="Education">Education</SelectItem>
