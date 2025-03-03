@@ -7,7 +7,7 @@ import { MainNav } from "@/components/main-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { UserNav } from "@/components/user-nav";
 import { FileText, Home, DollarSign, MessagesSquare, User, Bell } from "lucide-react";
-import { useMobile } from "@/hooks/use-mobile";
+import useMobile from "@/hooks/use-mobile";
 
 export interface SidebarProps {
   className?: string;
