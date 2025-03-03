@@ -1,40 +1,33 @@
 
+import { Routes, Route } from "react-router-dom";
+import { DashboardLayout } from "@/layouts/dashboard-layout";
+import Dashboard from "@/pages/Dashboard";
+import Funding from "@/pages/Funding";
+import Proposals from "@/pages/Proposals";
+import Profile from "@/pages/Profile";
+import Messages from "@/pages/Messages";
+import Alerts from "@/pages/Alerts";
+import NotFound from "@/pages/NotFound";
+import "./App.css";
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DashboardLayout } from "./layouts/dashboard-layout";
-import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
-import Proposals from "./pages/Proposals";
-import Funding from "./pages/Funding";
-import Messages from "./pages/Messages";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/proposals" element={<Proposals />} />
-            <Route path="/funding" element={<Funding />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="funding" element={<Funding />} />
+          <Route path="proposals" element={<Proposals />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="alerts" element={<Alerts />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+        </Route>
+      </Routes>
+      <Toaster />
+    </>
+  );
+}
 
 export default App;

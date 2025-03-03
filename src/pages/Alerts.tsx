@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bell, CheckCircle, AlertTriangle, Info } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 type AlertType = "info" | "warning" | "success";
 
@@ -52,26 +52,17 @@ export default function Alerts() {
         alert.id === id ? { ...alert, read: true } : alert
       )
     );
-    toast({
-      title: "Alert marked as read",
-      description: "This notification will no longer appear as new.",
-    });
+    toast.success("Alert marked as read");
   };
 
   const markAllAsRead = () => {
     setAlerts(prev => prev.map(alert => ({ ...alert, read: true })));
-    toast({
-      title: "All alerts marked as read",
-      description: "All notifications have been marked as read.",
-    });
+    toast.success("All alerts marked as read");
   };
 
   const deleteAlert = (id: string) => {
     setAlerts(prev => prev.filter(alert => alert.id !== id));
-    toast({
-      title: "Alert deleted",
-      description: "The notification has been removed.",
-    });
+    toast.success("Alert deleted");
   };
 
   const formatDate = (dateString: string) => {
