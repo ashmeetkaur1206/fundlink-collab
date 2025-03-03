@@ -1,4 +1,3 @@
-
 import { DashboardHeader } from "@/components/dashboard-header";
 import { DashboardCard } from "@/components/ui/dashboard-card";
 import { Button } from "@/components/ui/button";
@@ -120,6 +119,31 @@ const initialProposals = [
   },
 ];
 
+// Add new data for matched funding opportunities for each proposal
+const matchedFundingData = {
+  "1": [
+    { id: "1", name: "Johnson Foundation", amount: "$45,000", matchScore: 92 },
+    { id: "2", name: "GreenTech Initiative", amount: "$32,000", matchScore: 75 }
+  ],
+  "2": [
+    { id: "3", name: "Education Forward Trust", amount: "$28,500", matchScore: 95 }
+  ],
+  "3": [
+    { id: "4", name: "Youth Empowerment Fund", amount: "$52,000", matchScore: 87 },
+    { id: "5", name: "Community Action Group", amount: "$18,000", matchScore: 82 }
+  ],
+  "4": [
+    { id: "6", name: "Global Health Consortium", amount: "$38,750", matchScore: 91 }
+  ],
+  "5": [
+    { id: "7", name: "Social Housing Alliance", amount: "$65,000", matchScore: 89 },
+    { id: "8", name: "Urban Development Fund", amount: "$120,000", matchScore: 72 }
+  ],
+  "6": [
+    { id: "9", name: "Creative Arts Alliance", amount: "$32,200", matchScore: 83 }
+  ]
+};
+
 const categories = [
   "All Categories",
   "Environment",
@@ -170,7 +194,12 @@ export default function Proposals() {
   });
 
   const handleView = (proposal: any) => {
-    setSelectedProposal(proposal);
+    // Add matched funding data to the selected proposal
+    const proposalWithFunding = {
+      ...proposal,
+      matchedFunding: matchedFundingData[proposal.id] || []
+    };
+    setSelectedProposal(proposalWithFunding);
   };
 
   const handleNewProposal = () => {
@@ -383,7 +412,7 @@ export default function Proposals() {
       
       <Dialog open={!!selectedProposal} onOpenChange={() => setSelectedProposal(null)}>
         {selectedProposal && (
-          <DialogContent className="sm:max-w-[650px]">
+          <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-hidden flex flex-col">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 {selectedProposal.title}
@@ -402,73 +431,106 @@ export default function Proposals() {
               </DialogDescription>
             </DialogHeader>
             
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <h3 className="text-sm font-medium">Description</h3>
-                <p className="text-sm text-muted-foreground">{selectedProposal.description}</p>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-sm font-medium">Category</h3>
-                  <p className="text-sm text-muted-foreground">{selectedProposal.category}</p>
+            <ScrollArea className="flex-1 max-h-[500px] pr-4">
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <h3 className="text-sm font-medium">Description</h3>
+                  <p className="text-sm text-muted-foreground">{selectedProposal.description}</p>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium">Budget</h3>
-                  <p className="text-sm text-muted-foreground">{selectedProposal.budget}</p>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium">Category</h3>
+                    <p className="text-sm text-muted-foreground">{selectedProposal.category}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium">Budget</h3>
+                    <p className="text-sm text-muted-foreground">{selectedProposal.budget}</p>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-sm font-medium">Submitted Date</h3>
-                  <p className="text-sm text-muted-foreground">{new Date(selectedProposal.submittedDate).toLocaleDateString()}</p>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-medium">Submitted Date</h3>
+                    <p className="text-sm text-muted-foreground">{new Date(selectedProposal.submittedDate).toLocaleDateString()}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium">Deadline</h3>
+                    <p className="text-sm text-muted-foreground">{new Date(selectedProposal.deadline).toLocaleDateString()}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium">Deadline</h3>
-                  <p className="text-sm text-muted-foreground">{new Date(selectedProposal.deadline).toLocaleDateString()}</p>
-                </div>
-              </div>
-              
-              <div className="grid gap-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium">Completion</h3>
-                  <p className="text-sm font-medium">{selectedProposal.progress}%</p>
-                </div>
-                <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
-                  <div 
-                    className="h-full bg-primary" 
-                    style={{ width: `${selectedProposal.progress}%` }}
-                  />
-                </div>
-              </div>
-
-              <div className="grid gap-2">
-                <h3 className="text-sm font-medium">AI Match Score</h3>
-                <div className="flex items-center gap-2">
-                  <div className="relative h-2 w-full rounded-full bg-muted overflow-hidden">
+                
+                <div className="grid gap-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-medium">Completion</h3>
+                    <p className="text-sm font-medium">{selectedProposal.progress}%</p>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
                     <div 
-                      className={cn(
-                        "h-full",
-                        selectedProposal.matchScore >= 90 ? "bg-green-500" :
-                        selectedProposal.matchScore >= 75 ? "bg-amber-500" : "bg-red-500"
-                      )} 
-                      style={{ width: `${selectedProposal.matchScore}%` }}
+                      className="h-full bg-primary" 
+                      style={{ width: `${selectedProposal.progress}%` }}
                     />
                   </div>
-                  <span className={cn(
-                    "text-sm font-medium",
-                    selectedProposal.matchScore >= 90 ? "text-green-500" :
-                    selectedProposal.matchScore >= 75 ? "text-amber-500" : "text-red-500"
-                  )}>
-                    {selectedProposal.matchScore}%
-                  </span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Based on alignment with current funding opportunities.
-                </p>
+
+                <div className="grid gap-2">
+                  <h3 className="text-sm font-medium">AI Match Score</h3>
+                  <div className="flex items-center gap-2">
+                    <div className="relative h-2 w-full rounded-full bg-muted overflow-hidden">
+                      <div 
+                        className={cn(
+                          "h-full",
+                          selectedProposal.matchScore >= 90 ? "bg-green-500" :
+                          selectedProposal.matchScore >= 75 ? "bg-amber-500" : "bg-red-500"
+                        )} 
+                        style={{ width: `${selectedProposal.matchScore}%` }}
+                      />
+                    </div>
+                    <span className={cn(
+                      "text-sm font-medium",
+                      selectedProposal.matchScore >= 90 ? "text-green-500" :
+                      selectedProposal.matchScore >= 75 ? "text-amber-500" : "text-red-500"
+                    )}>
+                      {selectedProposal.matchScore}%
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Based on alignment with current funding opportunities.
+                  </p>
+                </div>
+                
+                {/* New section to show matched funding opportunities */}
+                {selectedProposal.matchedFunding && selectedProposal.matchedFunding.length > 0 && (
+                  <div className="mt-2">
+                    <h3 className="text-sm font-medium mb-2">Matched Funding Opportunities</h3>
+                    <div className="space-y-2">
+                      {selectedProposal.matchedFunding.map((funding: any) => (
+                        <div 
+                          key={funding.id} 
+                          className="flex items-center justify-between rounded-md border p-2.5 hover:bg-muted/50 transition-colors"
+                        >
+                          <div>
+                            <p className="font-medium text-sm">{funding.name}</p>
+                            <p className="text-xs text-muted-foreground">{funding.amount}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className={cn(
+                              "text-xs px-2 py-0.5 rounded-full font-medium",
+                              funding.matchScore >= 90 ? "bg-green-100 text-green-800" :
+                              funding.matchScore >= 80 ? "bg-blue-100 text-blue-800" :
+                              "bg-amber-100 text-amber-800"
+                            )}>
+                              {funding.matchScore}% Match
+                            </div>
+                            <Button size="sm" variant="ghost">View</Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
+            </ScrollArea>
             
             <DialogFooter className="flex sm:justify-between">
               <Button variant="outline">Edit Proposal</Button>
